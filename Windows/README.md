@@ -2,7 +2,7 @@
 
 ## 安装
 
-直接下载 [产品页](https://oakuno.com/project/oanyimort) 中的 `OAnyImort-Setup-1.1.0-x64.exe` 安装，或解压 ZIP 后运行 Setup.exe。先关闭旧版应用。支持 Windows 10 / 11 x64，自带 Python、Qt 和视频播放运行库。默认安装到当前用户的 `%LOCALAPPDATA%\Programs\OAnyImort`。
+从 [产品页](https://oakuno.com/project/oanyimort) 下载 `OAnyImort-Windows-1.1.0-x64.zip`，完整解压后进入 `OAnyImort-Windows` 文件夹，双击 `Setup.exe` 安装。这个 ZIP 可以直接分享给同学。先关闭旧版应用。支持 Windows 10 / 11 x64，自带 Python、Qt 和视频播放运行库。默认安装到当前用户的 `%LOCALAPPDATA%\Programs\OAnyImort`。
 
 ## 1.1.0 更新
 
@@ -17,7 +17,7 @@
 
 视频预览由 Qt Multimedia 提供，在本机解码。缩略图只加载可见卡片；不支持的编码会显示提示，不影响选择导入。单次先显示六张卡片，可展开全部并按需加载。关闭详情或返回列表会停止播放并释放文件。预览不修改来源文件。
 
-界面颜色和布局来自 macOS 版的 `Theme.swift`、`ContentView.swift` 和 `DetailView.swift`。安装包在 macOS 交叉构建，`test-evidence` 是同一代码在本机的实际渲染与测试素材，不是 Windows 实机截图。Windows 上的安装、解码和系统字体仍需实机验证。安装包尚未签名。
+界面颜色和布局来自 macOS 版的 `Theme.swift`、`ContentView.swift` 和 `DetailView.swift`。安装包在 macOS 交叉构建，`test-evidence` 是同一代码在本机的实际渲染与测试素材，不是 Windows 实机截图。公开安装包已在 Windows Server 2025 的 GitHub Actions 环境完成下载校验、安装与界面启动检查，11 项核心、界面及媒体测试通过。Windows 10/11 实体电脑的字体、缩放和硬件兼容仍未逐项验收。安装包按当前分发方案保持未签名。
 
 现有导入功能包括类型/格式/文件选择、三种归档方式、同名去重和重命名、SHA-256 校验、取消与 JSON 结果导出。源文件只读。尚不包含 EXIF/视频元数据日期、失败项重试、源文件删除及格式化。
 

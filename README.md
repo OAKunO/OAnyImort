@@ -7,7 +7,7 @@
 从 [产品页](https://oakuno.com/project/oanyimort) 下载对应安装包，无需安装开发环境。
 
 - **macOS 14+**：下载通用版 ZIP，解压后将 `OAnyImort.app` 拖到 Applications，支持 Apple silicon 和 Intel。下载版已通过 Developer ID 签名、Apple 公证、公证票据和 Gatekeeper 检查。
-- **Windows 10 / 11 x64**：直接下载 Setup.exe 安装；Python、Qt 和媒体组件均已包含，无需额外下载。当前未配置受信任的 Windows 代码签名证书，系统可能提示未知发布者。
+- **Windows 10 / 11 x64**：下载 ZIP，完整解压后打开其中的 Setup.exe；Python、Qt 和媒体组件均已包含，无需额外下载。Windows 版采用未签名安装包分发，系统可能提示未知发布者。
 
 网站：[oakuno.com/project/oanyimort](https://oakuno.com/project/oanyimort)。
 
@@ -80,6 +80,6 @@ OAnyImort 1.1.0 将应用、模块、安装包和界面名称统一。首次运�
 
 - 作者、代码审阅与发布负责人：OAKunO。
 - macOS 下载版使用维护者的 Developer ID Application 证书签名，并通过 Apple 公证。默认发布流程复用 Xcode 账号。`scripts/setup-notarization.command` 仅供需要 notarytool 自动化的维护者选用，普通用户不需要运行。
-- Windows 当前安装包未签名。正在准备申请免费开源签名服务，尚未提交或获批；不会把未签名包标为已签名。`.github/workflows/windows-build.yml` 提供可追溯的 Windows 原生构建，尚待 GitHub 发布后实际运行验证。
+- Windows 版采用未签名 ZIP 安装包分发，解压后运行 Setup.exe，不申请代码签名服务。所需 Python、Qt 与媒体组件均已包含。已在 Windows Server 2025 的 GitHub Actions 环境验证公开安装包的下载、SHA-256、安装与界面启动；这不等同于 Windows 10/11 实体电脑验收。
 - 应用只在本机处理所选文件，不主动上传用户文件或使用数据；复制到网络存储仅在用户主动选择该位置时进行。
 - 签名只用于本项目自有的可执行文件与安装包；随附的 Python、Qt、FFmpeg 等第三方组件保留各自来源和许可证。
