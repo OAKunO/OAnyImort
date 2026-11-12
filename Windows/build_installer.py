@@ -92,7 +92,10 @@ def main():
     if local_nsis.is_dir():
         env['NSISDIR'] = str(local_nsis)
     for script in ['launcher.nsi', 'installer.nsi']:
-        subprocess.run([str(compiler), '-V2', script], cwd=ROOT, env=env, check=True)
+        command = [str(compiler), '-V2']
+        if script == 'installer.nsi':
+            command.append('-DPAYLOAD_GLOB=' + str(payload / '*'))
+        subprocess.run([*command, script], cwd=ROOT, env=env, check=True)
     setup = dist / f'OAnyImort-Setup-{VERSION}-x64.exe'
     manifest = {
         'product': 'OAnyImort',

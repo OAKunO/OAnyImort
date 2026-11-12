@@ -3,6 +3,9 @@ Unicode true
 !include "LogicLib.nsh"
 !include "x64.nsh"
 !include "WinVer.nsh"
+!ifndef PAYLOAD_GLOB
+!define PAYLOAD_GLOB "build/payload/*"
+!endif
 Name "OAnyImort"
 OutFile "dist/OAnyImort-Setup-1.1.0-x64.exe"
 InstallDir "$LOCALAPPDATA\Programs\OAnyImort"
@@ -45,7 +48,7 @@ Function .onInit
 FunctionEnd
 Section "OAnyImort"
     SetOutPath "$INSTDIR"
-    File /r "build/payload/*"
+    File /r "${PAYLOAD_GLOB}"
     IfErrors 0 +3
         MessageBox MB_OK|MB_ICONSTOP "文件写入失败。请关闭 OAnyImort 后重新安装。"
         Abort
