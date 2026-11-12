@@ -1,0 +1,49 @@
+name: Windows release build
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Test application
+        run: |
+          python -m pip install -r Windows/requirements.txt
+          python -m unittest discover -s Windows -p "test_*.py" -v
+      - name: Download pinned Windows runtime and Qt wheels
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force Windows/.downloads/qt | Out-Null
+          Invoke-WebRequest -Uri 'https://sourceforge.net/projects/winpython/files/WinPython_3.13/3.13.18.0/WinPython64-3.13.18.0dot.zip/download' -OutFile Windows/.downloads/winpython.zip
+          python -m pip download --only-binary=:all: --platform win_amd64 --python-version 313 --implementation cp --abi abi3 --dest Windows/.downloads/qt PySide6-Essentials==6.8.3 PySide6-Addons==6.8.3
+      - name: Locate or install NSIS
+        shell: pwsh
+        run: |
+          $compiler = Join-Path ${env:ProgramFiles(x86)} 'NSIS/makensis.exe'
+          if (-not (Test-Path $compiler)) {
+            choco install nsis --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          if (-not (Test-Path $compiler)) { throw 'NSIS compiler was not installed.' }
+          "OANYIMORT_MAKENSIS=$compiler" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Build self-contained installer
+        run: python Windows/build_installer.py --makensis "${{ env.OANYIMORT_MAKENSIS }}"
+      - name: Upload unsigned build for validation and future signing
+        uses: actions/upload-artifact@v4
+        with:
+          name: OAnyImort-Windows-unsigned
+          path: |
+            Windows/dist/OAnyImort-Setup-*-x64.exe
+            Windows/dist/OAnyImort-Windows-*-x64.zip
+            Windows/dist/build-manifest.json
+          if-no-files-found: error

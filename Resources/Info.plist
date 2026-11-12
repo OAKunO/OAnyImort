@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+    <key>CFBundleName</key><string>OAnyImort</string>
+    <key>CFBundleDisplayName</key><string>OAnyImort</string>
+    <key>CFBundleIdentifier</key><string>com.oakuno.oanyimort</string>
+    <key>CFBundleExecutable</key><string>OAnyImort</string>
+    <key>CFBundleIconFile</key><string>AppIcon</string>
+    <key>CFBundlePackageType</key><string>APPL</string>
+    <key>CFBundleShortVersionString</key><string>1.1.0</string>
+    <key>CFBundleVersion</key><string>2</string>
+    <key>LSMinimumSystemVersion</key><string>14.0</string>
+    <key>NSHighResolutionCapable</key><true/>
+    <key>NSPrincipalClass</key><string>NSApplication</string>
+    <key>NSRemovableVolumesUsageDescription</key><string>读取所选存储卡、U 盘或硬盘中的素材并复制到指定文件夹；仅在你确认后删除已导入的原文件或格式化卡片。</string>
+    <key>NSDocumentsFolderUsageDescription</key><string>将所选素材保存到你指定的文稿文件夹，或读取你手动添加的素材来源。</string>
+    <key>NSDownloadsFolderUsageDescription</key><string>读取或保存你在 App 中选择的素材文件夹。</string>
+    <key>NSNetworkVolumesUsageDescription</key><string>将素材导入你选择的网络存储位置。</string>
+</dict></plist>
