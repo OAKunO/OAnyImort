@@ -1,0 +1,51 @@
+name: Publish Windows ZIP
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing release version, without v
+        required: true
+        default: '1.1.0'
+      sha256:
+        description: Expected ZIP SHA-256
+        required: true
+        default: '494bdb5b2878b30f479f4b790610454f9bfc931595f50c3e805eb5c7503fa54f'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RELEASE_VERSION: ${{ inputs.version }}
+      EXPECTED_SHA256: ${{ inputs.sha256 }}
+    steps:
+      - name: Download and verify the unsigned distribution
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$EXPECTED_SHA256" =~ ^[a-f0-9]{64}$ ]]
+          name="OAnyImort-Windows-${RELEASE_VERSION}-x64.zip"
+          gh release view "v${RELEASE_VERSION}" >/dev/null
+          curl --fail --location --retry 3 --output "$name" "https://oakuno.com/downloads/oanyimort/$name"
+          printf '%s  %s\n' "$EXPECTED_SHA256" "$name" > "$name.sha256"
+          sha256sum --check "$name.sha256"
+          unzip -t "$name"
+          unzip -Z1 "$name" | grep -Fx 'OAnyImort-Windows/Setup.exe'
+      - name: Publish the verified ZIP and checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          name="OAnyImort-Windows-${RELEASE_VERSION}-x64.zip"
+          gh release upload "v${RELEASE_VERSION}" "$name" "$name.sha256" --clobber
+          mkdir public-check
+          gh release download "v${RELEASE_VERSION}" --pattern "$name" --dir public-check
+          cd public-check
+          printf '%s  %s\n' "$EXPECTED_SHA256" "$name" | sha256sum --check
