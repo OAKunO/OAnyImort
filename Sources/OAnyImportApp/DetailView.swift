@@ -1,7 +1,7 @@
 import SwiftUI
 import QuickLook
 import QuickLookThumbnailing
-import OAnyImortCore
+import OAnyImportCore
 
 struct DetailView: View {
     @ObservedObject var model: AppModel

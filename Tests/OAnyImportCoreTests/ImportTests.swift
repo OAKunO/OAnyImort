@@ -1,12 +1,12 @@
 import XCTest
-@testable import OAnyImortCore
+@testable import OAnyImportCore
 
 final class ImportTests: XCTestCase {
     var root: URL!
     var source: SourceVolume!
     var destination: URL!
     override func setUpWithError() throws {
-        root = FileManager.default.temporaryDirectory.appendingPathComponent("OAnyImortTests-\(UUID())")
+        root = FileManager.default.temporaryDirectory.appendingPathComponent("OAnyImportTests-\(UUID())")
         let sourceURL = root.appendingPathComponent("card")
         destination = root.appendingPathComponent("output")
         try FileManager.default.createDirectory(at: sourceURL, withIntermediateDirectories: true)

@@ -1,4 +1,4 @@
-"""OAnyImort desktop interface, rendered consistently with the macOS design."""
+"""OAnyImport desktop interface, rendered consistently with the macOS design."""
 import ctypes
 import json
 import os
@@ -43,10 +43,24 @@ def devices():
     return result
 
 
+def migrate_preferences(settings, legacy_stores=None):
+    marker = 'migratedOAnyImportPreferences'
+    if settings.contains(marker):
+        return
+    if legacy_stores is None:
+        legacy_stores = [QSettings('OAnyImort', 'OAnyImort'), QSettings('SDImport', 'SDImport')]
+    for legacy in legacy_stores:
+        for key in legacy.allKeys():
+            if not settings.contains(key):
+                settings.setValue(key, legacy.value(key))
+    settings.setValue(marker, True)
+    settings.sync()
+
+
 class App(QWidget):
     def __init__(self, demo=False, settings=True):
         super().__init__()
-        self.setWindowTitle('OAnyImort')
+        self.setWindowTitle('OAnyImport')
         self.setWindowIcon(QIcon(str(Path(__file__).with_name('app.ico'))))
         self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -56,14 +70,9 @@ class App(QWidget):
         self.resize(max(820, round(1094 * fit)), max(590, round(789 * fit)))
         self.setMouseTracking(True)
         self.setAcceptDrops(True)
-        self.settings = QSettings('OAnyImort', 'OAnyImort') if settings else None
-        if self.settings and not self.settings.contains('migratedLegacyPreferences'):
-            legacy = QSettings('SDImport', 'SDImport')
-            for key in legacy.allKeys():
-                if not self.settings.contains(key):
-                    self.settings.setValue(key, legacy.value(key))
-            self.settings.setValue('migratedLegacyPreferences', True)
-            self.settings.sync()
+        self.settings = QSettings('OAnyImport', 'OAnyImport') if settings else None
+        if self.settings:
+            migrate_preferences(self.settings)
         self.appearance = self.pref('appearance', 'light')
         self.destination = Path(self.pref('destination', str(Path.home() / 'Documents' / '视频素材')))
         self.layout = self.pref('layout', LAYOUTS[0])
@@ -251,7 +260,7 @@ class App(QWidget):
 
     def draw_sidebar(self):
         self.round(22,68,42,42,13,'panel'); self.icon('card',32,77,24)
-        self.text(74,68,155,25,'OAnyImort',18,bold=True)
+        self.text(74,68,155,25,'OAnyImport',18,bold=True)
         self.text(74,95,150,16,'一点一滴，好好收藏',9,'secondary')
         self.text(23,145,57,20,'素材来源',11,'secondary',True)
         self.text(76,145,50,20,str(len(self.sources)),9,'faint')
@@ -617,7 +626,7 @@ class App(QWidget):
         done=QPushButton('完成'); done.clicked.connect(dialog.accept); buttons.addWidget(done); layout.addLayout(buttons); dialog.exec()
 
     def export_report(self):
-        path,_=QFileDialog.getSaveFileName(self,'导出导入记录','OAnyImort-result.json','JSON (*.json)')
+        path,_=QFileDialog.getSaveFileName(self,'导出导入记录','OAnyImport-result.json','JSON (*.json)')
         if path:
             try: Path(path).write_text(json.dumps(dict(exportedAt=datetime.now().isoformat(),records=self.records),ensure_ascii=False,indent=2),encoding='utf-8')
             except OSError as exc: QMessageBox.warning(self,'导出失败',str(exc))
@@ -630,7 +639,7 @@ class App(QWidget):
 
 def main():
     app=QApplication.instance() or QApplication(sys.argv)
-    app.setApplicationName('OAnyImort'); app.setOrganizationName('OAnyImort')
+    app.setApplicationName('OAnyImport'); app.setOrganizationName('OAnyImport')
     window=App(demo='--demo' in sys.argv)
     window.show()
     return app.exec()

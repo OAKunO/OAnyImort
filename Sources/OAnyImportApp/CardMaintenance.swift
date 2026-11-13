@@ -1,5 +1,5 @@
 import Foundation
-import OAnyImortCore
+import OAnyImportCore
 
 struct ImportCard: Identifiable {
     let source: SourceVolume
@@ -33,7 +33,7 @@ enum CardMaintenance {
         guard (latest["VolumeUUID"] as? String)?.caseInsensitiveCompare(card.volumeUUID) == .orderedSame,
               latest["ParentWholeDisk"] as? String == wholeDisk,
               latest["MountPoint"] as? String == card.source.url.path else { throw Failure.invalidDevice }
-        _ = try run(["eraseDisk", "ExFAT", "OANYIMORT", "MBRFormat", wholeDisk])
+        _ = try run(["eraseDisk", "ExFAT", "OANYIMPORT", "MBRFormat", wholeDisk])
     }
 
     private static func run(_ arguments: [String]) throws -> Data {

@@ -6,7 +6,7 @@ on:
       version:
         description: Existing release version, without v
         required: true
-        default: '1.1.0'
+        default: '1.1.1'
       sha256:
         description: Expected ZIP SHA-256
         required: true
@@ -32,18 +32,18 @@ jobs:
           set -euo pipefail
           [[ "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
           [[ "$EXPECTED_SHA256" =~ ^[a-f0-9]{64}$ ]]
-          name="OAnyImort-Windows-${RELEASE_VERSION}-x64.zip"
+          name="OAnyImport-Windows-${RELEASE_VERSION}-x64.zip"
           gh release view "v${RELEASE_VERSION}" >/dev/null
-          curl --fail --location --retry 3 --output "$name" "https://oakuno.com/downloads/oanyimort/$name"
+          curl --fail --location --retry 3 --output "$name" "https://oakuno.com/downloads/oanyimport/$name"
           printf '%s  %s\n' "$EXPECTED_SHA256" "$name" > "$name.sha256"
           sha256sum --check "$name.sha256"
           unzip -t "$name"
-          unzip -Z1 "$name" | grep -Fx 'OAnyImort-Windows/Setup.exe'
+          unzip -Z1 "$name" | grep -Fx 'OAnyImport-Windows/Setup.exe'
       - name: Publish the verified ZIP and checksum
         shell: bash
         run: |
           set -euo pipefail
-          name="OAnyImort-Windows-${RELEASE_VERSION}-x64.zip"
+          name="OAnyImport-Windows-${RELEASE_VERSION}-x64.zip"
           gh release upload "v${RELEASE_VERSION}" "$name" "$name.sha256" --clobber
           mkdir public-check
           gh release download "v${RELEASE_VERSION}" --pattern "$name" --dir public-check

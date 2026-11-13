@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-    <key>CFBundleName</key><string>OAnyImort</string>
-    <key>CFBundleDisplayName</key><string>OAnyImort</string>
-    <key>CFBundleIdentifier</key><string>com.oakuno.oanyimort</string>
-    <key>CFBundleExecutable</key><string>OAnyImort</string>
+    <key>CFBundleName</key><string>OAnyImport</string>
+    <key>CFBundleDisplayName</key><string>OAnyImport</string>
+    <key>CFBundleIdentifier</key><string>com.oakuno.oanyimport</string>
+    <key>CFBundleExecutable</key><string>OAnyImport</string>
     <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>1.1.0</string>
-    <key>CFBundleVersion</key><string>2</string>
+    <key>CFBundleShortVersionString</key><string>1.1.1</string>
+    <key>CFBundleVersion</key><string>3</string>
     <key>LSMinimumSystemVersion</key><string>14.0</string>
     <key>NSHighResolutionCapable</key><true/>
     <key>NSPrincipalClass</key><string>NSApplication</string>

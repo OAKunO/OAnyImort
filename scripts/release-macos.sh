@@ -7,13 +7,13 @@ cd "$PROJECT_ROOT"
 export UNIVERSAL=1
 zsh scripts/build.sh
 VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Resources/Info.plist)
-APP_PATH="$PROJECT_ROOT/dist/OAnyImort.app"
+APP_PATH="$PROJECT_ROOT/dist/OAnyImport.app"
 STAGING="$PROJECT_ROOT/.release-work/dmg"
 mkdir -p "$STAGING"
-ditto "$APP_PATH" "$STAGING/OAnyImort.app"
+ditto "$APP_PATH" "$STAGING/OAnyImport.app"
 ln -sfn /Applications "$STAGING/Applications"
-DMG="$PROJECT_ROOT/dist/OAnyImort-macOS-$VERSION-universal.dmg"
-hdiutil create -volname OAnyImort -srcfolder "$STAGING" -format UDZO -ov "$DMG"
+DMG="$PROJECT_ROOT/dist/OAnyImport-macOS-$VERSION-universal.dmg"
+hdiutil create -volname OAnyImport -srcfolder "$STAGING" -format UDZO -ov "$DMG"
 codesign --force --timestamp --sign "$CODE_SIGN_IDENTITY" "$DMG"
 xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait --timeout 10m
 xcrun stapler staple "$DMG"

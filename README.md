@@ -1,15 +1,15 @@
-# OAnyImort
+# OAnyImport
 
 一个安静的本地素材导入与归档工具，支持 macOS 和 Windows。存储卡、U 盘、移动硬盘和普通文件夹，都可以作为来源。奶油白 / 暖夜黑 / 跟随系统，所有素材处理均在本机完成。
 
 ## 打开 App
 
-从 [产品页](https://oakuno.com/project/oanyimort) 下载对应安装包，无需安装开发环境。
+从 [产品页](https://oakuno.com/project/oanyimport) 下载对应安装包，无需安装开发环境。
 
-- **macOS 14+**：下载通用版 ZIP，解压后将 `OAnyImort.app` 拖到 Applications，支持 Apple silicon 和 Intel。下载版已通过 Developer ID 签名、Apple 公证、公证票据和 Gatekeeper 检查。
+- **macOS 14+**：下载通用版 ZIP，解压后将 `OAnyImport.app` 拖到 Applications，支持 Apple silicon 和 Intel。下载版已通过 Developer ID 签名、Apple 公证、公证票据和 Gatekeeper 检查。
 - **Windows 10 / 11 x64**：下载 ZIP，完整解压后打开其中的 Setup.exe；Python、Qt 和媒体组件均已包含，无需额外下载。Windows 版采用未签名安装包分发，系统可能提示未知发布者。
 
-网站：[oakuno.com/project/oanyimort](https://oakuno.com/project/oanyimort)。
+网站：[oakuno.com/project/oanyimport](https://oakuno.com/project/oanyimport)。
 
 以下为 macOS 操作；Windows 操作与差异见 [Windows/README.md](Windows/README.md)。
 
@@ -23,7 +23,7 @@
 ## 文件处理
 
 - 默认只读取来源文件，不删除、不移动、不格式化 SD 卡。成功导入后，可在结果页面选择卡片并确认删除已导入的原文件，或选择格式化整张卡。
-- 删除前会重新比较原文件与电脑副本的 SHA-256；身份无法确认或内容变化的文件不会删除。格式化需要滑动和再次确认，会清空卡上所有分区和文件，并创建名为 OANYIMORT 的 ExFAT 卷。
+- 删除前会重新比较原文件与电脑副本的 SHA-256；身份无法确认或内容变化的文件不会删除。格式化需要滑动和再次确认，会清空卡上所有分区和文件，并创建名为 OANYIMPORT 的 ExFAT 卷。
 - 同一目标位置的同名文件比较 SHA-256；内容相同跳过，不同则添加序号，绝不覆盖。
 - 复制过程中写入隐藏的临时文件，完成后再移动到正式名称。
 - 默认开启 SHA-256 目标校验，并保留文件创建 / 修改日期。
@@ -35,12 +35,12 @@
 
 ## 开发与构建
 
-项目采用 SwiftUI + AppKit，核心扫描、分类、导入逻辑放在独立的 `OAnyImortCore` 模块，无第三方依赖。
+项目采用 SwiftUI + AppKit，核心扫描、分类、导入逻辑放在独立的 `OAnyImportCore` 模块，无第三方依赖。
 
 ```sh
 zsh scripts/test.sh
 zsh scripts/build.sh
-open dist/OAnyImort.app
+open dist/OAnyImport.app
 ```
 
 可使用 Xcode 打开 `Package.swift`。开发构建默认使用 ad-hoc 签名。`UNIVERSAL=1` 可构建 Apple silicon + Intel 通用版；`CODE_SIGN_IDENTITY` 可指定本机钥匙串中的 Developer ID 签名身份。
@@ -72,7 +72,7 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/ModuleCache" swift scripts/make-icon.swift 
 
 ## 改名与许可
 
-OAnyImort 1.1.0 将应用、模块、安装包和界面名称统一。首次运行会读取旧版设置，保留保存位置和外观等偏好。旧名称只用于设置迁移。
+OAnyImport 1.1.1 修正了 1.1.0 中 Import 漏写 p 的拼写错误，统一应用、模块、安装包和界面名称。首次运行会读取 OAnyImort 或更早 SDImport 的设置，保留保存位置和外观等偏好。旧名称只用于设置迁移和兼容跳转。
 
 源码采用 [MIT License](LICENSE)。Windows 随附组件按各自的开源许可证分发，详见 [第三方声明](Windows/THIRD_PARTY_NOTICES.txt)。
 

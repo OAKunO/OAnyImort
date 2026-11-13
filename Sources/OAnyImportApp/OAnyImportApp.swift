@@ -2,7 +2,7 @@ import SwiftUI
 import AppKit
 
 @main
-struct OAnyImortApp: App {
+struct OAnyImportApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var delegate
     @StateObject private var model = AppModel()
     @AppStorage("appearance") private var appearance = "light"

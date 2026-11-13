@@ -1,5 +1,5 @@
 import SwiftUI
-import OAnyImortCore
+import OAnyImportCore
 import UniformTypeIdentifiers
 
 struct ContentView: View {

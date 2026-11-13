@@ -10,7 +10,8 @@ from PySide6.QtCore import Qt, QPoint
 from PySide6.QtTest import QTest
 from PySide6.QtGui import QImage, QColor
 from PySide6.QtWidgets import QApplication
-from app import App
+from app import App, migrate_preferences
+from PySide6.QtCore import QSettings
 
 APP = QApplication.instance() or QApplication([])
 
@@ -31,6 +32,26 @@ class InterfaceTests(unittest.TestCase):
             APP.processEvents(); time.sleep(.01)
         self.assertFalse(self.window.busy)
         APP.processEvents()
+    def test_name_correction_migrates_preferences_once_without_overwriting(self):
+        def store(name):
+            return QSettings(str(self.root / (name + '.ini')), QSettings.Format.IniFormat)
+        current, legacy, older = store('current'), store('legacy'), store('older')
+        current.setValue('appearance', 'light')
+        legacy.setValue('destination', '/old/media')
+        legacy.setValue('verify', 'false')
+        legacy.setValue('appearance', 'dark')
+        legacy.setValue('migratedLegacyPreferences', True)
+        older.setValue('destination', '/older/media')
+        older.setValue('layout', '保留原目录')
+        migrate_preferences(current, [legacy, older])
+        self.assertEqual(current.value('destination'), '/old/media')
+        self.assertEqual(current.value('verify'), 'false')
+        self.assertEqual(current.value('appearance'), 'light')
+        self.assertEqual(current.value('layout'), '保留原目录')
+        current.remove('destination')
+        migrate_preferences(current, [legacy, older])
+        self.assertIsNone(current.value('destination'))
+        self.assertEqual(self.window.windowTitle(), 'OAnyImport')
     def click(self, key):
         APP.processEvents()
         rect = next(rect for hit,rect,_ in self.window.hits if hit==key)

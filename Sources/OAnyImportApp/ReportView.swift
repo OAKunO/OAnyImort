@@ -1,5 +1,5 @@
 import SwiftUI
-import OAnyImortCore
+import OAnyImportCore
 
 struct ReportView: View {
     @ObservedObject var model: AppModel
@@ -181,7 +181,7 @@ private struct FormatCardSheet: View {
             Text("格式化内存卡").font(.system(size: 21, weight: .semibold))
             Text("「\(card.source.name)」 · \(byteString(card.source.capacity))")
                 .font(.system(size: 13, weight: .medium))
-            Text("将永久清除这张卡上的所有分区和文件，包括没有导入的文件。完成后卡将使用 ExFAT 格式，名称为 OANYIMORT。此操作无法撤销。")
+            Text("将永久清除这张卡上的所有分区和文件，包括没有导入的文件。完成后卡将使用 ExFAT 格式，名称为 OANYIMPORT。此操作无法撤销。")
                 .font(.system(size: 12)).foregroundStyle(p.secondary).fixedSize(horizontal: false, vertical: true)
             Text("向右滑到底，再进行最后确认")
                 .font(.system(size: 11, weight: .medium))

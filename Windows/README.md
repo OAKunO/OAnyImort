@@ -1,10 +1,10 @@
-# OAnyImort Windows 版
+# OAnyImport Windows 版
 
 ## 安装
 
-从 [产品页](https://oakuno.com/project/oanyimort) 下载 `OAnyImort-Windows-1.1.0-x64.zip`，完整解压后进入 `OAnyImort-Windows` 文件夹，双击 `Setup.exe` 安装。这个 ZIP 可以直接分享给同学。先关闭旧版应用。支持 Windows 10 / 11 x64，自带 Python、Qt 和视频播放运行库。默认安装到当前用户的 `%LOCALAPPDATA%\Programs\OAnyImort`。
+从 [产品页](https://oakuno.com/project/oanyimport) 下载 `OAnyImport-Windows-1.1.1-x64.zip`，完整解压后进入 `OAnyImport-Windows` 文件夹，双击 `Setup.exe` 安装。这个 ZIP 可以直接分享给同学。先关闭旧版应用。支持 Windows 10 / 11 x64，自带 Python、Qt 和视频播放运行库。默认安装到当前用户的 `%LOCALAPPDATA%\Programs\OAnyImport`。
 
-## 1.1.0 更新
+## 1.1.1 更新
 
 应用、安装包、快捷方式与日志统一更名，并在首次运行时迁移旧版偏好设置。
 

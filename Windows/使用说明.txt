@@ -1,14 +1,14 @@
-OAnyImort Windows 1.1.0
+OAnyImport Windows 1.1.1
 
 安装：
 1. 如果下载的是 ZIP，先完整解压；直接下载的 Setup.exe 无需解压。
 2. 关闭旧版应用，双击 Setup.exe 安装。
-3. 从桌面或开始菜单打开 OAnyImort。
+3. 从桌面或开始菜单打开 OAnyImport。
 
 支持 Windows 10 / 11 x64，自带运行环境与视频播放组件，不用另外安装 Python。
-默认安装到当前用户的 LocalAppData\Programs\OAnyImort，可从 Windows 设置或开始菜单卸载。
+默认安装到当前用户的 LocalAppData\Programs\OAnyImport，可从 Windows 设置或开始菜单卸载。
 
-1.1.0 更新：
+1.1.1 更新：
 统一应用、安装器、快捷方式、日志和导入记录名称，支持读取旧版偏好设置。
 
 现有功能：
@@ -31,4 +31,4 @@ LRV 文件归入“其他文件”。
 
 验证状态：
 已在 Mac 上验证同一代码的界面和本地视频解码；新版尚未完成 Windows 实机验证。
-安装包尚未签名。启动失败日志位于 %LOCALAPPDATA%\OAnyImort\logs\startup.log。
+安装包尚未签名。启动失败日志位于 %LOCALAPPDATA%\OAnyImport\logs\startup.log。

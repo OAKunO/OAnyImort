@@ -10,9 +10,9 @@ if [[ "${UNIVERSAL:-0}" == "1" ]]; then
 fi
 swift build "${BUILD_FLAGS[@]}"
 BIN_PATH="$(swift build "${BUILD_FLAGS[@]}" --show-bin-path)"
-APP_PATH="$PROJECT_ROOT/dist/OAnyImort.app"
+APP_PATH="$PROJECT_ROOT/dist/OAnyImport.app"
 mkdir -p "$APP_PATH/Contents/MacOS" "$APP_PATH/Contents/Resources"
-cp "$BIN_PATH/OAnyImort" "$APP_PATH/Contents/MacOS/OAnyImort"
+cp "$BIN_PATH/OAnyImport" "$APP_PATH/Contents/MacOS/OAnyImport"
 cp Resources/Info.plist "$APP_PATH/Contents/Info.plist"
 if [[ -f Resources/AppIcon.icns ]]; then
     cp Resources/AppIcon.icns "$APP_PATH/Contents/Resources/"

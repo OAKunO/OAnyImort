@@ -1,12 +1,12 @@
 #!/bin/zsh
 set -euo pipefail
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PROFILE="OAnyImort-notary"
+PROFILE="OAnyImport-notary"
 TEAM_ID="${APPLE_TEAM_ID:-TQ3H9RKZW9}"
-print 'OAnyImort · Apple 公证配置'
+print 'OAnyImport · Apple 公证配置'
 print ''
 print '1. 在 account.apple.com 登录你的 Apple 开发者账号。'
-print '2. 在「登录与安全 → App 专用密码」生成一个名为 OAnyImort 的密码。'
+print '2. 在「登录与安全 → App 专用密码」生成一个名为 OAnyImport 的密码。'
 print '3. 在下面输入账号邮箱；随后 Apple 的命令行工具会隐藏输入专用密码。'
 print '请勿输入 Apple 账号的日常登录密码，也不要把密码发到聊天中。'
 print ''

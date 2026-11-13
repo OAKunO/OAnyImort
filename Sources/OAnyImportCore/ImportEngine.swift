@@ -49,7 +49,7 @@ public actor ImportEngine {
                 if choice.duplicate {
                     report.records.append(ImportRecord(source: file.url.path, destination: choice.url.path, outcome: .skipped, message: "内容相同，已跳过"))
                 } else {
-                    let temporary = folder.appendingPathComponent(".oanyimort-\(UUID().uuidString).part")
+                    let temporary = folder.appendingPathComponent(".oanyimport-\(UUID().uuidString).part")
                     staging = temporary
                     let sourceHash = try await copy(file, to: temporary) { bytes in await publish(bytes, "正在复制") }
                     if plan.verify {

@@ -1,4 +1,4 @@
-OAnyImort Windows uses Python, Qt for Python, and FFmpeg.
+OAnyImport Windows uses Python, Qt for Python, and FFmpeg.
 
 Python 3.13.18 (WinPython portable distribution)
 License: runtime/LICENSE.txt
@@ -11,7 +11,7 @@ Distributed under the applicable LGPLv3 terms. License copies are in licenses/.
 The dynamically loaded Qt libraries can be replaced with compatible builds.
 Qt source: https://download.qt.io/archive/qt/6.8/6.8.3/single/
 PySide/Shiboken source: https://download.qt.io/official_releases/QtForPython/pyside6/
-No Qt libraries have been modified by OAnyImort.
+No Qt libraries have been modified by OAnyImport.
 
 FFmpeg 7.1 as distributed in Qt for Python 6.8.3
 Copyright the FFmpeg developers and contributors.
@@ -19,4 +19,4 @@ Licensed under LGPL version 2.1 or later; see licenses/LGPL-2.1.txt.
 Source: https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz
 Project: https://ffmpeg.org/
 The avcodec, avformat, avutil, swscale and swresample libraries are dynamically
-loaded and have not been modified by OAnyImort.
+loaded and have not been modified by OAnyImport.

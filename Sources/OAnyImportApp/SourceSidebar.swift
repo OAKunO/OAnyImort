@@ -1,5 +1,5 @@
 import SwiftUI
-import OAnyImortCore
+import OAnyImportCore
 
 struct SourceSidebar: View {
     @ObservedObject var model: AppModel
@@ -13,7 +13,7 @@ struct SourceSidebar: View {
                 Image(systemName: "sdcard").font(.system(size: 23, weight: .light)).foregroundStyle(p.accent)
                     .frame(width: 42, height: 42).background(p.panel.opacity(0.7), in: RoundedRectangle(cornerRadius: 13))
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("OAnyImort").font(.system(size: 19, weight: .semibold, design: .rounded))
+                    Text("OAnyImport").font(.system(size: 19, weight: .semibold, design: .rounded))
                     Text("一点一滴，好好收藏").font(.system(size: 9)).foregroundStyle(p.secondary)
                 }
             }.padding(.top, 40).padding(.horizontal, 22).padding(.bottom, 32)

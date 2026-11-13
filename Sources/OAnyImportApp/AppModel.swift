@@ -1,6 +1,6 @@
 import AppKit
 import Combine
-import OAnyImortCore
+import OAnyImportCore
 
 @MainActor
 final class AppModel: ObservableObject {
@@ -35,17 +35,7 @@ final class AppModel: ObservableObject {
 
     init() {
         let defaults = UserDefaults.standard
-        if !defaults.bool(forKey: "migratedLegacyPreferences") {
-            for domain in ["com.oakuno.sdimport", "com.ccw.sdimport"] {
-                guard let legacy = defaults.persistentDomain(forName: domain) else { continue }
-                for key in ["destination", "layout", "separateCards", "verify", "appearance"] {
-                    if defaults.object(forKey: key) == nil, let value = legacy[key] {
-                        defaults.set(value, forKey: key)
-                    }
-                }
-            }
-            defaults.set(true, forKey: "migratedLegacyPreferences")
-        }
+        PreferencesMigration.migrate(defaults: defaults)
         destination = URL(fileURLWithPath: defaults.string(forKey: "destination") ?? NSHomeDirectory() + "/Documents/视频素材", isDirectory: true)
         layout = FolderLayout(rawValue: defaults.string(forKey: "layout") ?? "") ?? .typeDate
         separateCards = defaults.bool(forKey: "separateCards")
@@ -265,7 +255,7 @@ final class AppModel: ObservableObject {
             if let error { maintenanceMessage = error }
             else {
                 importCards.removeAll { $0.id == card.id }
-                maintenanceMessage = "「\(card.source.name)」已格式化为 ExFAT，名称为 OANYIMORT。"
+                maintenanceMessage = "「\(card.source.name)」已格式化为 ExFAT，名称为 OANYIMPORT。"
             }
             refreshSources(rescan: true)
         }
@@ -297,7 +287,7 @@ final class AppModel: ObservableObject {
     func exportReport() {
         guard let report, activePanel == nil else { return }
         let panel = NSSavePanel()
-        panel.nameFieldStringValue = "OAnyImort-导入记录.json"
+        panel.nameFieldStringValue = "OAnyImport-导入记录.json"
         present(panel) { [weak self] response in
             guard response == .OK, let url = panel.url else { return }
             do {

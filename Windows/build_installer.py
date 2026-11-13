@@ -9,7 +9,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = '1.1.0'
+VERSION = '1.1.1'
 RUNTIME_SHA256 = '50c4f17809457e411c2db30959c8fb25a958ff3a6f624080044992809509bc37'
 RUNTIME_URL = 'https://sourceforge.net/projects/winpython/files/WinPython_3.13/3.13.18.0/WinPython64-3.13.18.0dot.zip/download'
 RUNTIME_PREFIX = 'WPy64-313180/python/'
@@ -96,9 +96,9 @@ def main():
         if script == 'installer.nsi':
             command.append('-DPAYLOAD_GLOB=' + str(payload / '*'))
         subprocess.run([*command, script], cwd=ROOT, env=env, check=True)
-    setup = dist / f'OAnyImort-Setup-{VERSION}-x64.exe'
+    setup = dist / f'OAnyImport-Setup-{VERSION}-x64.exe'
     manifest = {
-        'product': 'OAnyImort',
+        'product': 'OAnyImport',
         'version': VERSION, 'target': 'Windows 10/11 x64',
         'signing': 'Unsigned: trusted Windows Authenticode certificate not configured.',
         'setup_sha256': sha(setup), 'runtime_sha256': RUNTIME_SHA256,
@@ -107,14 +107,14 @@ def main():
         'files': {str(p.relative_to(payload)): sha(p) for p in payload.rglob('*') if p.is_file()},
     }
     (dist / 'build-manifest.json').write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding='utf-8')
-    release = dist / f'OAnyImort-Windows-{VERSION}-x64.zip'
+    release = dist / f'OAnyImport-Windows-{VERSION}-x64.zip'
     with zipfile.ZipFile(release, 'w', zipfile.ZIP_DEFLATED) as z:
-        z.write(setup, 'OAnyImort-Windows/Setup.exe')
-        z.write(ROOT / '使用说明.txt', 'OAnyImort-Windows/使用说明.txt')
-        z.write(ROOT.parent / 'LICENSE', 'OAnyImort-Windows/LICENSE.txt')
-        z.write(dist / 'build-manifest.json', 'OAnyImort-Windows/build-manifest.json')
+        z.write(setup, 'OAnyImport-Windows/Setup.exe')
+        z.write(ROOT / '使用说明.txt', 'OAnyImport-Windows/使用说明.txt')
+        z.write(ROOT.parent / 'LICENSE', 'OAnyImport-Windows/LICENSE.txt')
+        z.write(dist / 'build-manifest.json', 'OAnyImport-Windows/build-manifest.json')
         for license_file in sorted((ROOT / 'licenses').glob('*.txt')):
-            z.write(license_file, 'OAnyImort-Windows/licenses/' + license_file.name)
+            z.write(license_file, 'OAnyImport-Windows/licenses/' + license_file.name)
     print(f'Created {release} ({release.stat().st_size / 1024 / 1024:.1f} MB)')
 
 if __name__ == '__main__':

@@ -156,7 +156,7 @@ def import_files(files, destination, layout='类型 / 日期', separate=False, v
                 target = folder / f'{item.source.stem} ({counter}){item.source.suffix}'
                 counter += 1
             else:
-                fd, name = tempfile.mkstemp(prefix='.oanyimort-', suffix='.tmp', dir=folder)
+                fd, name = tempfile.mkstemp(prefix='.oanyimport-', suffix='.tmp', dir=folder)
                 temp = Path(name)
                 with os.fdopen(fd, 'wb') as out, item.source.open('rb') as src:
                     while True:

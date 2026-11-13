@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "OAnyImort",
+    name: "OAnyImport",
     platforms: [.macOS(.v14)],
-    products: [.executable(name: "OAnyImort", targets: ["OAnyImortApp"])],
+    products: [.executable(name: "OAnyImport", targets: ["OAnyImportApp"])],
     targets: [
-        .target(name: "OAnyImortCore"),
-        .executableTarget(name: "OAnyImortApp", dependencies: ["OAnyImortCore"]),
-        .testTarget(name: "OAnyImortCoreTests", dependencies: ["OAnyImortCore"])
+        .target(name: "OAnyImportCore"),
+        .executableTarget(name: "OAnyImportApp", dependencies: ["OAnyImportCore"]),
+        .testTarget(name: "OAnyImportCoreTests", dependencies: ["OAnyImportCore"])
     ]
 )
