@@ -10,7 +10,7 @@ on:
       sha256:
         description: Expected ZIP SHA-256
         required: true
-        default: '494bdb5b2878b30f479f4b790610454f9bfc931595f50c3e805eb5c7503fa54f'
+        default: '6feea98aa4f25ea892ce9ba1b1e9f2ccc6c04af42ef375bd79dd45272feff7cf'
 
 permissions:
   contents: read
@@ -26,6 +26,7 @@ jobs:
       RELEASE_VERSION: ${{ inputs.version }}
       EXPECTED_SHA256: ${{ inputs.sha256 }}
     steps:
+      - uses: actions/checkout@v4
       - name: Download and verify the unsigned distribution
         shell: bash
         run: |
@@ -39,12 +40,20 @@ jobs:
           sha256sum --check "$name.sha256"
           unzip -t "$name"
           unzip -Z1 "$name" | grep -Fx 'OAnyImport-Windows/Setup.exe'
-      - name: Publish the verified ZIP and checksum
+      - name: Complete the verified release assets
         shell: bash
         run: |
           set -euo pipefail
           name="OAnyImport-Windows-${RELEASE_VERSION}-x64.zip"
-          gh release upload "v${RELEASE_VERSION}" "$name" "$name.sha256" --clobber
+          setup="OAnyImport-Setup-${RELEASE_VERSION}-x64.exe"
+          mac="OAnyImport-macOS-${RELEASE_VERSION}-universal.zip"
+          source="OAnyImport-${RELEASE_VERSION}-source.zip"
+          checksums="OAnyImport-${RELEASE_VERSION}-SHA256SUMS.txt"
+          unzip -p "$name" 'OAnyImport-Windows/Setup.exe' > "$setup"
+          gh release download "v${RELEASE_VERSION}" --pattern "$mac"
+          git archive --format=zip --prefix="OAnyImport-${RELEASE_VERSION}/" --output="$source" HEAD
+          sha256sum "$source" "$setup" "$name" "$mac" > "$checksums"
+          gh release upload "v${RELEASE_VERSION}" "$source" "$setup" "$name" "$name.sha256" "$checksums" --clobber
           mkdir public-check
           gh release download "v${RELEASE_VERSION}" --pattern "$name" --dir public-check
           cd public-check
