@@ -72,7 +72,7 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/ModuleCache" swift scripts/make-icon.swift 
 
 ## 改名与许可
 
-OAnyImport 1.1.1 修正了 1.1.0 中 Import 漏写 p 的拼写错误，统一应用、模块、安装包和界面名称。首次运行会读取 OAnyImort 或更早 SDImport 的设置，保留保存位置和外观等偏好。旧名称只用于设置迁移和兼容跳转。
+OAnyImport 1.1.1 提供 macOS 通用版和 Windows x64 离线安装包。首次运行会延续已有设置，保留保存位置、外观和导入偏好。
 
 源码采用 [MIT License](LICENSE)。Windows 随附组件按各自的开源许可证分发，详见 [第三方声明](Windows/THIRD_PARTY_NOTICES.txt)。
 

@@ -32,7 +32,7 @@ class InterfaceTests(unittest.TestCase):
             APP.processEvents(); time.sleep(.01)
         self.assertFalse(self.window.busy)
         APP.processEvents()
-    def test_name_correction_migrates_preferences_once_without_overwriting(self):
+    def test_preferences_migrate_once_without_overwriting(self):
         def store(name):
             return QSettings(str(self.root / (name + '.ini')), QSettings.Format.IniFormat)
         current, legacy, older = store('current'), store('legacy'), store('older')
